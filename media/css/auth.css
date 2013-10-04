@@ -1,0 +1,72 @@
+
+
+/*FOR AUTH.VIEW.INDEX*/
+#main_content{
+		padding:20px;
+		text-align:center;
+		margin:0px;
+		vertcal-align:center;
+	
+	}
+	#content{
+		width:1000px;
+		margin:0 auto;
+		text-align:center;
+		
+		
+	
+	}
+	
+	#login,#reg{
+		width:400px;
+		margin:0 auto;
+		margin-top:80px;
+		vertial-align:center;
+		border:1px solid #CCC;
+		
+		-moz-box-shadow: 0 0 5px #666; 
+		-webkit-box-shadow: 0 0 5px #666;
+		
+		/*margin-top:100px;*/
+		
+	
+	}
+	
+	#login .id_header,#reg .id_header{
+		padding:10px;
+		margin:0px;
+		margin-bottom:20px;
+		text-align:left;
+		font-size:14px;
+		background:#F8F8F8;
+		border-bottom:1px #AAAAAA solid;
+	
+	
+	}
+	#login #login_form,#reg #reg_form{
+		padding:10px;
+		margin:10px;
+	
+	
+	}
+	#login #submit,#reg #r_submit{
+		background:None;
+		background-color:#61A3E8;
+		width:40px;
+		text-align:center;
+		
+		padding:3px 10px;
+		border:1px solid #CCC;
+	
+	
+	}
+	
+	#regiter_ok,#return_login{
+		padding:3px 10px;
+		text-decoration:underline;
+		color:red;
+	}
+	#regiter_ok:hover,#return_login:hover,#login #submit:hover,#reg #r_submit:hover{
+		cursor:pointer;
+	
+	}

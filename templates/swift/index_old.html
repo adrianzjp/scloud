@@ -1,0 +1,768 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>swift online website</title>
+
+<link type="text/css" rel="stylesheet" href="/site_media/css/main.css" />
+
+<script src="/site_media/js/jquery-1.7.1.min.js"></script>
+<!-- <script src="/site_media/js/csrf.js"></script> -->
+
+<link rel="stylesheet" href="/site_media/js/jqwidgets/styles/jqx.base.css" type="text/css" />
+<script type="text/javascript" src="/site_media/js/scripts/gettheme.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxbuttons.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxscrollbar.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxpanel.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxtree.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxexpander.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxwindow.js"></script>
+
+
+
+
+
+<style>
+	#content{
+		margin:0px;
+		padding:0px;
+		text-align:left;
+		
+		
+	}
+	
+	
+	#content #header{
+		margin:0px;
+		padding:0px;
+		background-color:#2D2D2D;
+		color:#FFF;
+		padding:10px 10px;
+		text-align:left;
+	
+	}
+	#swift_content{width:1200px;}
+	
+	#content #swift_content #leftbar,#content #swift_content #rightbar{
+		margin:0px;
+		
+		float:left;
+	
+	}
+	#content #swift_content #leftbar{width:250px;/*border-right:1px solid #CCC;*/border:0px;}
+	#content #swift_content #rightbar{width:926px;border-left:1px solid #CCC;}
+	
+	#logout:hover{
+		cursor:pointer
+	}
+	
+	
+	#rightbar #rightbar_header{
+		background-color:#F2F2F2;
+		padding:10px;
+		border:1px #AAAAAA solid;
+		border-left:0px;
+	
+	
+	}
+	#rightbar #rightbar_content{
+		padding:10px;
+	
+	}
+	
+	#rightbar_content table{
+		border:1px solid #CCC;
+		border-collapse:collapse;
+	
+	}
+	
+	#rightbar_content table th{
+		font-size:14px;
+		font-weight:bold;
+		background-color:#F2F2F2;
+		
+	
+	}
+	
+	#rightbar_content table td,#rightbar_content table th{
+		border:1px solid #CCC;
+		padding:10px;
+		text-align:center;
+	
+	}
+	#rightbar_content table .name{
+		width:350px;
+	
+	}
+	#rightbar_content table .size{
+		width:150px;
+	
+	}
+	#rightbar_content table .modified_time{
+		width:150px;
+	
+	}
+	#rightbar_content table .actions{
+		width:250px;
+	
+	}
+	
+	#rightbar_content table td{
+		font-size:14px;
+	
+	}
+		
+	.tr_color{
+		background-color:#F7FEF3;
+	
+	}	
+		
+</style>
+
+  <script type="text/javascript">
+        $(document).ready(function () {
+        	
+        	//转成utf-8编码
+        	 function EncodeUtf8(s1)
+        	  {
+        	      var s = escape(s1);
+        	      var sa = s.split("%");
+        	      var retV ="";
+        	      if(sa[0] != "")
+        	      {
+        	         retV = sa[0];
+        	      }
+        	      for(var i = 1; i < sa.length; i ++)
+        	      {
+        	           if(sa[i].substring(0,1) == "u")
+        	           {
+        	               retV += Hex2Utf8(Str2Hex(sa[i].substring(1,5)));
+        	                
+        	           }
+        	           else retV += "%" + sa[i];
+        	      }
+        	       
+        	      return retV;
+        	  }
+        	  function Str2Hex(s)
+        	  {
+        	      var c = "";
+        	      var n;
+        	      var ss = "0123456789ABCDEF";
+        	      var digS = "";
+        	      for(var i = 0; i < s.length; i ++)
+        	      {
+        	         c = s.charAt(i);
+        	         n = ss.indexOf(c);
+        	         digS += Dec2Dig(eval(n));
+        	            
+        	      }
+        	      //return value;
+        	      return digS;
+        	  }
+        	  function Dec2Dig(n1)
+        	  {
+        	      var s = "";
+        	      var n2 = 0;
+        	      for(var i = 0; i < 4; i++)
+        	      {
+        	         n2 = Math.pow(2,3 - i);
+        	         if(n1 >= n2)
+        	         {
+        	            s += '1';
+        	            n1 = n1 - n2;
+        	          }
+        	         else
+        	          s += '0';
+        	           
+        	      }
+        	      return s;
+        	       
+        	  }
+        	  function Dig2Dec(s)
+        	  {
+        	      var retV = 0;
+        	      if(s.length == 4)
+        	      {
+        	          for(var i = 0; i < 4; i ++)
+        	          {
+        	              retV += eval(s.charAt(i)) * Math.pow(2, 3 - i);
+        	          }
+        	          return retV;
+        	      }
+        	      return -1;
+        	  }
+        	  function Hex2Utf8(s)
+        	  {
+        	     var retS = "";
+        	     var tempS = "";
+        	     var ss = "";
+        	     if(s.length == 16)
+        	     {
+        	         tempS = "1110" + s.substring(0, 4);
+        	         tempS += "10" +  s.substring(4, 10);
+        	         tempS += "10" + s.substring(10,16);
+        	         var sss = "0123456789ABCDEF";
+        	         for(var i = 0; i < 3; i ++)
+        	         {
+        	            retS += "%";
+        	            ss = tempS.substring(i * 8, (eval(i)+1)*8);
+        	             
+        	             
+        	             
+        	            retS += sss.charAt(Dig2Dec(ss.substring(0,4)));
+        	            retS += sss.charAt(Dig2Dec(ss.substring(4,8)));
+        	         }
+        	         return retS;
+        	     }
+        	     return "";
+        	  } 
+        	
+        	  
+        	  //-----------------------
+        	  
+            var theme = "";
+            
+            
+
+            // Create jqxTree
+            $('#jqxTree').jqxTree({ theme: theme });
+
+            // Create jqxExpander
+            $('#jqxExpander').jqxExpander({ showArrow: false, toggleMode: 'none', width: '240px', height: 'auto', theme: theme });
+            
+            $('#logout').click(function(){
+            	
+            	$.post("/auth/logout/", {},	
+    					function(data) {
+    			if (data=='OK'){
+    				
+    				self.location='/';
+    				
+    				
+    			}else{
+    				
+    				alert('退出失败')
+    				
+    			}
+    			
+    			
+    		})
+            	
+            	
+            })
+            
+            $('#jqxTree').bind('select', function (event) {
+                var args = event.args;
+                var item = $('#jqxTree').jqxTree('getItem', args.element);
+            	//alert(item.label)
+            	
+                //for(i in item){
+                //	 alert('this item is '+i);//i就是test的属性名
+                //	 alert(item[i]);//test.i就是属性值
+                //}
+            	
+            	//alert(item.level)
+            	
+            	if (item.level==0){
+            		
+	                $('#rightbar_header').html(item.label+'<span style="float:right;" id="create_tenant">创建租户</span>');
+	                
+	                $('#create_tenant').css({"margin-right":"20px","font-size":"13px","font-weight":"bold","border-bottom":"1px solid #000"});
+					$('#create_tenant').mouseover(function(){
+            			
+            			$(this).css({"cursor":"pointer","border-bottom":"2px solid red","color":"red"})
+            			
+            		})
+            		
+            		$('#create_tenant').mouseleave(function(){
+            			
+            			
+            			$(this).css({"cursor":"pointer","border-bottom-color":"#000","border-bottom":"1px solid #000","color":"#000"})
+            			
+            		})
+            		
+            		$('#create_tenant').click(function(){
+            			
+            			
+            			$('#rightbar').append(
+            					'<div id="window">'+
+	            	                '<div id="windowHeader">'+
+		                                '<span>'+
+		                                    '<img src="/site_media/img/images/folder.png" alt="" style="margin-right: 15px" />创建文件夹'+
+		                                '</span>'+
+	                            	'</div>'+
+	                            	'<div style="overflow: hidden;" id="windowContent">'+
+	                            		'<form action="/swift/createtenant/" enctype="multipart/form-data" method="post">'+
+	                            			'<div class="create_f">租户名称： <input type="text" name = "tenant_name"/></div>'+
+	                            			'<div class="" style="padding:10px;text-align:center"><input type="submit" value="创建租户" /></div>'+
+	                            		'</form>'+
+	                            	'</div>'+
+                        		'</div>')
+            			
+                        		
+                       	$('.create_f').css({"padding":"10px","font-size":"13px","font-weight":"bold"});
+                        $('#window').jqxWindow({ maxHeight: 400, maxWidth: 700, minHeight: 150, minWidth: 300, height: 100, width: 400});
+                        $('#window').jqxWindow('resizable', false);
+            	         //var inputObj=document.createElement('input')
+            	         //inputObj.setAttribute('id','_ef');
+            	         //inputObj.setAttribute('type','file');
+            	         //inputObj.setAttribute("style",'visibility:hidden');
+            	         //document.body.appendChild(inputObj);
+            	         //inputObj.click();
+            	         
+            	         //document.getElementById('_ef').onchange = function () {
+            	        	 
+            	        	 
+            	        	// alert(this.path)
+            	        	// alert(this.value)
+            	        	 
+            	        	// $.post("/swift/uploadobject/", {tenant:tenant_name,container:container_name,filename:this.value},	
+            		    	//	function(data) {
+            	        	//	 if (data=='OK'){
+            	        	//		 alert('OK')
+            	        	//	 }
+            	        	// })
+            	      //  };
+            		})
+            	}
+            	
+            	if (item.level==1){
+	            	
+	            	//var container_name = item.label.split('_')[0]
+	            	var tenant_label = $("#"+item.parentId).find("div").eq(0).find("span").eq(0).html()
+
+	            	var tenant_name = item.label
+	            	
+	                $('#rightbar_header').html(tenant_label+">>"+item.label+'<span style="float:right;" id="create_folder">创建文件夹</span>');
+	                $('#create_folder').css({"margin-right":"20px","font-size":"13px","font-weight":"bold","border-bottom":"1px solid #000"});
+					$('#create_folder').mouseover(function(){
+            			
+            			$(this).css({"cursor":"pointer","border-bottom":"2px solid red","color":"red"})
+            			
+            		})
+            		
+            		$('#create_folder').mouseleave(function(){
+            			
+            			
+            			$(this).css({"cursor":"pointer","border-bottom-color":"#000","border-bottom":"1px solid #000","color":"#000"})
+            			
+            		})
+            		$('#create_folder').click(function(){
+            			
+            			
+            			$('#rightbar').append(
+            					'<div id="window">'+
+	            	                '<div id="windowHeader">'+
+		                                '<span>'+
+		                                    '<img src="/site_media/img/images/folder.png" alt="" style="margin-right: 15px" />创建文件夹'+
+		                                '</span>'+
+	                            	'</div>'+
+	                            	'<div style="overflow: hidden;" id="windowContent">'+
+	                            		'<form action="/swift/createfolder/" enctype="multipart/form-data" method="post">'+
+	                            			'<div class="create_f">文件夹名称： <input type="text" name = "folder_name"/></div>'+
+	                            			'<div class="" style="padding:10px;text-align:center"><input type="submit" value="创建文件夹" /></div>'+
+	                            		'<input style="display:none" type="text" name="tenant" value="'+tenant_name+'"/>'+
+	                            		'</form>'+
+	                            	'</div>'+
+                        		'</div>')
+            			
+                        		
+                       	$('.create_f').css({"padding":"10px","font-size":"13px","font-weight":"bold"});
+                        $('#window').jqxWindow({ maxHeight: 400, maxWidth: 700, minHeight: 150, minWidth: 300, height: 100, width: 400});
+                        $('#window').jqxWindow('resizable', false);
+            	         //var inputObj=document.createElement('input')
+            	         //inputObj.setAttribute('id','_ef');
+            	         //inputObj.setAttribute('type','file');
+            	         //inputObj.setAttribute("style",'visibility:hidden');
+            	         //document.body.appendChild(inputObj);
+            	         //inputObj.click();
+            	         
+            	         //document.getElementById('_ef').onchange = function () {
+            	        	 
+            	        	 
+            	        	// alert(this.path)
+            	        	// alert(this.value)
+            	        	 
+            	        	// $.post("/swift/uploadobject/", {tenant:tenant_name,container:container_name,filename:this.value},	
+            		    	//	function(data) {
+            	        	//	 if (data=='OK'){
+            	        	//		 alert('OK')
+            	        	//	 }
+            	        	// })
+            	      //  };
+            		})
+            	}
+            	
+            	
+            	
+            	if (item.level>1){
+            		
+	            	var tenant_label = $("#"+item.parentId).find("div").eq(0).find("span").eq(0).html()
+	            	
+	            	var container_name = item.label
+	            	//var container_name = item.label.split('_')[0]
+	            	var tenant_name =tenant_label
+	            	
+	            	//alert(tenant_label)
+	            	//for (i in item){
+	            		
+	            		//alert(i)
+	            		//alert(item[i])
+	            		
+	            	//}
+	            	//alert(item['label'])
+	            	
+	            	//alert(item.label)
+	            	//alert(item.parentItem().label)
+	            	
+
+	                $('#rightbar_header').html(tenant_label+">>"+item.label+'<span style="float:right;" id="delete_folder">删除文件夹</span>'+'<span style="float:right;" id="upload_file">上传文件</span>');
+
+	                $('#delete_folder').css({"margin-right":"20px","font-size":"13px","font-weight":"bold","border-bottom":"1px solid #000","margin-left":'5px'});
+	                $('#upload_file').css({"margin-right":"20px","font-size":"13px","font-weight":"bold","border-bottom":"1px solid #000"});
+	            	
+	                $('#upload_file,#delete_folder').mouseover(function(){
+            			
+            			$(this).css({"cursor":"pointer","border-bottom":"2px solid red","color":"red"})
+            			
+            		})
+            		
+            		$('#upload_file,#delete_folder').mouseleave(function(){
+            			
+            			
+            			$(this).css({"cursor":"pointer","border-bottom-color":"#000","border-bottom":"1px solid #000","color":"#000"})
+            			
+            		})
+	                $('#delete_folder').click(function(){
+            			var num = $('#count_num').html().split('(')[1].split(')')[0]
+            			
+            			if (num!=0){
+            				alert('您不能删除非空文件夹');
+            				return false;
+            				
+            			}else{
+            				
+							$.post("/swift/deletefolder/", {tenant:tenant_name,container:container_name},	
+		    				function(data) {
+								history.go(0) 
+		            		
+							
+							})
+            				
+            			}
+            			
+            		})
+            		
+            		
+            		
+            		$('#upload_file').click(function(){
+            			
+            			
+            			$('#rightbar').append(
+            					'<div id="window">'+
+	            	                '<div id="windowHeader">'+
+		                                '<span>'+
+		                                    '<img src="/site_media/img/images/folder.png" alt="" style="margin-right: 15px" />文件上传'+
+		                                '</span>'+
+	                            	'</div>'+
+	                            	'<div style="overflow: hidden;" id="windowContent">'+
+	                            		'<form action="/swift/uploadobject/" enctype="multipart/form-data" method="post">'+
+	                            			'<div class="upload">选择文件： <input type="file" name="file"/></div>'+
+	                            			'<div class="" style="padding:10px;text-align:center"><input type="submit" value="上传文件" /></div>'+
+	                            		'<input style="display:none" type="text" name="tenant" value="'+tenant_name+'"/>'+
+	                            		'<input style="display:none" type="text" name="container" value="'+container_name+'"/>'+
+	                            		'</form>'+
+	                            	'</div>'+
+                        		'</div>')
+            			
+                        		
+                       	$('.upload').css({"padding":"10px","font-size":"13px","font-weight":"bold"});
+                        $('#window').jqxWindow({ maxHeight: 400, maxWidth: 700, minHeight: 200, minWidth: 300, height: 200, width: 400});
+                        $('#window').jqxWindow('resizable', false);
+            	         //var inputObj=document.createElement('input')
+            	         //inputObj.setAttribute('id','_ef');
+            	         //inputObj.setAttribute('type','file');
+            	         //inputObj.setAttribute("style",'visibility:hidden');
+            	         //document.body.appendChild(inputObj);
+            	         //inputObj.click();
+            	         
+            	         //document.getElementById('_ef').onchange = function () {
+            	        	 
+            	        	 
+            	        	// alert(this.path)
+            	        	// alert(this.value)
+            	        	 
+            	        	// $.post("/swift/uploadobject/", {tenant:tenant_name,container:container_name,filename:this.value},	
+            		    	//	function(data) {
+            	        	//	 if (data=='OK'){
+            	        	//		 alert('OK')
+            	        	//	 }
+            	        	// })
+            	      //  };
+            		})
+            		
+	                
+	                $('#rightbar_content table').empty()
+	            	
+	            	$('#loading').show()
+	            	
+	            	
+	            	//var tenant_name = item.label.split('_')[1]
+	            	
+	            	//alert(tenant_name)
+	            	//alert(container_name)
+	            	
+	            	
+	            	$.post("/swift/getobjects/", {tenant:tenant_name,container:container_name},	
+	    				function(data) {
+	            		data = eval(data)
+	            		length = (data.length)
+		            	$('#rightbar_content table').append('<thead>'+
+								'<tr><th class="name" id="count_num">文件名称('+length+')</th><th class="size">大小</th><th class="modified_time">修改时间</th><th class="actions">操作</th></tr>'+
+								"</thead>")
+						var c = 0;		
+	            		$.each(data,function(){
+	            			$('#rightbar_content table').append(
+	            					'<tr><td class="name" value="'+this[0]+'">'+this[0]+'</td><td class="size">'+this[1]+'</td><td class="modified_time">'+this[2]+'</td><td class="actions"><span class="s_actions" value="download">下载</span><span class="s_actions" value="delete">删除</span><span class="s_actions" value="share">分享</span></td></tr>')});  
+	            		
+	            		//$('#rightbar_content table tr:even').addClass('tr_color')
+	            		$('#rightbar_content table tr').mouseover(function(){
+	            			
+	            			$(this).addClass('tr_color')
+	            			
+	            		})
+	            		$('#rightbar_content table tr').mouseleave(function(){
+	            			
+	            			$(this).removeClass('tr_color')
+	            			
+	            		})
+	            		
+	            		$('.s_actions').css({"margin-right":"20px","font-size":"13px","font-weight":"bold","border-bottom":"1px solid #000"});
+	            		$('.s_actions').mouseover(function(){
+	            			
+	            			$(this).css({"cursor":"pointer","border-bottom":"2px solid #000"})
+	            			
+	            		})
+	            		
+	            		$('.s_actions').mouseleave(function(){
+	            			
+	            			
+	            			$(this).css({"cursor":"pointer","border-bottom-color":"#000","border-bottom":"1px solid #000"})
+	            			
+	            		})
+	            		
+	            		$('.s_actions').click(function(){
+	            			
+	            			var sibs  =$(this).parent().siblings()
+	            			var this_obj_parent = $(this).parent().parent()
+	            			
+	            			var file_name = $(this).parent().siblings().eq(0).attr("value")
+	            			
+	            			var action_name = $(this).attr("value")
+	            			
+	            			if (action_name == 'download'){
+	            				
+	            				//alert(EncodeUtf8(file_name))
+	            				//url = '/swift/downloadfile?tenant='+tenant_name+'&container='+container_name+'&filename='+encodeURI(file_name)
+	            				url = '/'+container_name+'/'+file_name+'/download'
+	            				//alert(url)
+	            				window.open(url)
+	            				//window.open('/swift/downloadfile?tenant='+tenant_name+'&container=图片&filename='+(file_name))
+	            				//window.location='/swift/downloadfile?tenant='+tenant_name+'&container='+container_name+'&filename='+file_name
+	            				//$.post("/swift/downloadfile/", {tenant:tenant_name,container:container_name,filename:file_name},	
+	            		    	//		function(data) {
+	            					
+	            					
+	            				//		alert('OK')
+	            						
+	            							//alert(data)
+	            							//if (data == 'OK'){
+	            								
+	            								//alert('download ok!')
+	            								
+	            							//}
+	            				//})
+	            				//alert("download")
+	            				
+	            			}
+	            			
+	            			
+	            			if (action_name == 'delete'){
+	            				
+	            				if (confirm('你确认要删除文件吗？')){
+	            					
+	            					//var tenant_container = $('#rightbar_header').html()
+	            					//alert(tenant_container)
+	            					
+	            					//var container_name = tenant_container.split('&gt;&gt;')[1]
+	            					//var tenant_name = tenant_container.split('&gt;&gt;')[0]
+	            					
+	            					//alert(container_name)
+	            					//alert(tenant_name)
+	            					
+	            					//alert(EncodeUtf8(file_name))
+	            					$.post("/swift/deletefile/", {tenant:tenant_name,container:container_name,filename:file_name},	
+	            		    			function(data) {
+            								//alert(data)
+	            						
+	            							if (data == 'OK'){
+	            							
+	            								this_obj_parent.hide()
+	            								
+	            								//$(this).parent().siblings().hide()
+	            								
+	            							}
+	            							
+	            					})
+	            				}
+	            			}
+	            		})
+	            		
+	            		
+	            		$('#loading').hide()
+	    			
+	    			
+	    			})
+            		
+            		
+            		
+            	}
+            	
+            	
+            	
+            	
+            });
+            
+            //var value = $('.hi').attr("value")
+            //alert(value)
+            
+        });
+    </script>
+</head>
+
+<body>
+
+<div id="main_content">
+	<div id="content">
+		<div id="header" style="">
+		 This is a swift demo website.
+		<span style="float:right;
+		color:#CCC;margin-right:10px;font-size:13px;"><span>Welcome, {{username}}.&nbsp&nbsp</span><b id="logout" style="text-decoration:underline;">退出</b></span>
+		</div>
+		
+		<div id="swift_content">
+		<div id="leftbar">
+			<div id='jqxExpander'>
+	            <div style="font-size:14px;">Welcome, {{username}}!</div>
+	            <div id='jqxTree'>
+	            <!-- 
+	                <ul>
+	                    <li item-expanded='true'>
+	                        <img style='float: left; margin-right: 5px;' src='/site_media/img/images/folder.png' /><span
+	                            item-title="true">swift root</span> -->
+	                        <ul>
+	                        <!-- 
+	                            <li item-expanded='true'>
+	                                <img style='float: left; margin-right: 5px;' src='/site_media/img/images/calendarIcon.png' /><span
+	                                    item-title="true">Calendar</span> </li>
+	                            <li>
+	                                <img style='float: left; margin-right: 5px;' src='/site_media/img/images/contactsIcon.png' /><span
+	                                    item-title="true">Contacts</span> </li> 
+	                         -->
+	                            <li item-expanded='true'>
+	                                <img style='float: left; margin-right: 5px;' src='/site_media/img/images/folder.png' /><span
+	                                    item-title="true"> <span>Swift Box</span></span>
+	                                <ul>
+	                                 {% for tenant,containers in tenants_containers.items%}
+		                                    <li  item-expanded='true'>
+		                                        <img style='float: left; margin-right: 5px;' src='/site_media/img/images/folder.png' /><span
+		                                            item-title="true">{{tenant}}</span>
+		                                            <!-- 
+		                                            {% ifequal tenant username  %}
+			                                            <span style="color: Blue;">&nbsp(Private)</span>
+													{% endifequal %}
+		                                             -->
+		                                            
+		                                        <ul>
+											 		{%  for n in containers %}
+					                                            <li>
+					                                                <img style='float: left; margin-right: 5px;' src='/site_media/img/images/folder.png' /><span
+					                                                    item-title="true">{{n}}<!--_{{tenant}}--></span> </li>
+											 			
+													 {% endfor %}
+		                                            
+		                                            
+		                                        </ul>
+		                                    </li>
+		 
+									 {% endfor %}
+	                                
+                                       
+	                                </ul>
+	                            </li>
+                                <li>
+                                    <img style='float: left; margin-right: 5px;' src='/site_media/img/images/notesIcon.png' /><span
+                                        item-title="true">Notes</span> </li>
+                                <li>
+                                    <img style='float: left; margin-right: 5px;' src='/site_media/img/images/settings.png' /><span
+                                        item-title="true">Settings</span> </li>
+                                <li>
+                                    <img style='float: left; margin-right: 5px;' src='/site_media/img/images/favorites.png' /><span
+                                        item-title="true">Favorites</span> </li>
+	                        </ul>
+	                    <!-- </li> </ul> -->
+	               
+	            </div>
+	        </div>
+	        <div style="clear:both"></div>
+		</div>
+		
+		
+		<div id="rightbar">
+		
+			<div>
+				<div id="rightbar_header" style="font-weight:bold">
+					hi, I am {{username}}
+					
+				</div>
+				
+				<div id="rightbar_content">
+				<div style="display:none;text-align:center;margin-top:50px;width:900px;" id="loading"><img  src='/site_media/img/loading.gif' /></div>
+					<table>
+						
+						<thead>
+						<tr><th class="name">文件名称</th><th class="size">大小</th><th class="actions">修改时间</th><th class="actions">操作</th></tr>
+						</thead>
+						<!-- 
+						<tr><td class="name"></td><td class="size"></td><td class="actions"></td></tr>
+						<tr><td class="name"></td><td class="size"></td><td class="actions"></td></tr>
+						<tr><td class="name"></td><td class="size"></td><td class="actions"></td></tr>
+						<tr><td class="name"></td><td class="size"></td><td class="actions"></td></tr>
+						
+						 -->
+						
+					
+					
+					</table>
+				
+				
+				</div>
+			
+			
+			
+			</div>
+		
+		
+		
+		</div>
+		
+		</div>
+	
+	</div>
+
+</div>
+
+</body>
+</html>

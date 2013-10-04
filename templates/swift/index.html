@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	{% include 'swift/common.html' %}
+    <div id="mainPanel">
+    	<div id="search">
+        	<input id="searchInput" class="search-text" placeholder="当前页文件搜索">
+        </div>
+        <div id="crumb">
+        {% load  filters%}
+        	<span style="padding-left:20px;color:#388FC9;font-size:13px;">全部文件</span><span style="color:#388FC9;font-size:13px;" id="crumb_content" value="{{id}}" count="0">{{path}}</span>
+        	<span id="contents_list" style="display:none" folder_ids="" files=""></span>
+        	<span id="loading" style="display:none"><img  src='/site_media/img/loading.gif' /></span>
+        </div>
+        
+        <div id="toolbar" class="cmd-panel">
+        <span><a href="#" id="tbBack" value="0"><<返回</a></span><span><a href="#" id="upload_file">上传文件</a></span><span><a href="#" id="create_folder">新建文件夹</a></span>
+        <span style="" class="toolbar_add">
+	        <span id="download"><a href="#" value="0">下载</a></span><span id="delete"><a href="#">删除</a></span><span id="share"><a href="#">分享</a></span><span id="rename"><a href="#">重命名</a></span>
+        </span>
+    	</div>
+        
+        <div id="filelist" style="height:450px;overflow-y:auto;overflow-x:hidden;">
+			<div style="padding:10px 10px;display:none;margin-left:15px;" id="u_file">
+			
+				<form action="/swift/uploadobjectById/" enctype="multipart/form-data" method="post" style="height:40px;">
+						<input type="file" name="file" id="file" />
+						<input type="submit" name="upload" id="upload" value="提交文件" style="" onclick="return check()"/>
+				</form>
+			
+			</div>
+            <table>
+						<thead>
+							<tr><th><label class="checkbox_all" id="check_all" value="none"></label></th><th class="name">文件名</th><th class="size">大小</th><th class="modified_time">日期</th></tr>
+						</thead>
+                        
+                        
+                        	{%  for n in containers %}
+					            <tr class="filelistcontent"><td><label class="checkbox" value="none" type="folder" idf="{{n.0}}"></label></td><td class="name" type="folder" style="background:url(/site_media/img/folder.png) no-repeat left;padding-left:50px;"><span class="folder"  id="{{n.0}}">{{n.1}}</span></td><td class="size"></td><td class="modified_time"></td></tr>                               
+											 			
+							{% endfor %}
+							
+							{%  for n in objects %}
+					            <tr class="filelistcontent"><td><label class="checkbox" value="none" type="object" ido="{{n.0}}"  name="{{n.2}}" fname="{{n.1}}"></label></td><td class="name" type="obj"><span class="object" id="{{n.0}}">{{n.1}}</span></td><td class="size">{{n.3}}</td><td class="modified_time">{{n.4}}</td></tr>                               
+											 			
+							{% endfor %}
+                        
+                        
+		
+			</table>
+        	
+        </div>
+    
+    
+    </div>
+    	
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

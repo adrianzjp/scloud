@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	{% include 'auth/common.html' %}
+    <div id="mainPanel">
+    	<div id="search">
+        	<input id="searchInput" class="search-text" placeholder="当前页文件搜索">
+        </div>
+        <div id="crumb">
+        {% load  filters%}
+        	<span style="padding-left:20px;color:#388FC9;font-size:13px;">{{ title }}</span><span style="margin-left: 20px;" id="{{opr_id}}">{{ oprs|escape }}</span>
+        	<span id="contents_list" style="display:none" folder_ids="" files=""></span>
+        	<span id="loading" style="display:none"><img  src='/site_media/img/loading.gif' /></span>
+        </div>
+        
+        
+        <div id="filelist" style="height:450px;overflow-y:auto;overflow-x:hidden;">
+           
+			
+			<table>
+						<thead>
+							<tr>
+							<th></th>
+							<th class="">public 域</th>
+							<th class=""></th>
+							<th class=""></th>
+							<th class=""></th>
+							<th class=""></th></tr>
+						</thead>
+                        
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="">域1</td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="name"><span class="folder">域2</span></td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="name"><span class="folder">域3</span></td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+											 			
+							
+                        
+                        
+		
+			</table>
+			
+			<table>
+						<thead>
+							<tr>
+							<th></th>
+							<th class="">protected 域</th>
+							<th class=""></th>
+							<th class=""></th>
+							<th class=""></th>
+							<th class=""></th></tr>
+						</thead>
+                        
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="">域1</td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="name"><span class="folder">域2</span></td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="name"><span class="folder">域3</span></td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+											 			
+							
+                        
+                        
+		
+			</table>
+			
+			<table>
+						<thead>
+							<tr>
+							<th></th>
+							<th class="">private 域</th>
+							<th class=""></th>
+							<th class=""></th>
+							<th class=""></th>
+							<th class=""></th></tr>
+						</thead>
+                        
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="">域1</td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="name"><span class="folder">域2</span></td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+					            <tr class="contentlist">
+						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
+						            <td class="name"><span class="folder">域3</span></td>
+						            <td class="size">10GB</td>
+						            <td class="num">1人</td>
+						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
+						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+					            </tr>                               
+											 			
+							
+                        
+                        
+		
+			</table>
+			
+			
+			
+        	
+        </div>
+    
+    
+    </div>
+    	
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

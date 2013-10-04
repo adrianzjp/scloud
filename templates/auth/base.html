@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <title>Swift Dashboard</title>
+    {% include "horizon/_conf.html" %}
+    {% block css %}
+      {% include "_stylesheets.html" %}
+    {% endblock %}
+    {% include "horizon/client_side/_script_loader.html" %}
+  </head>
+  <body id="{% block body_id %}{% endblock %}">
+    {% block content %}
+      <div id="container">
+        {% block sidebar %}{% endblock %}
+        <div id='main_content'>
+          <div class='topbar'>
+          {% include "_header.html" %}
+          {% block page_header %}{% endblock %}
+          </div>
+          {% block main %}{% endblock %}
+        </div>
+      </div>
+    {% endblock %}
+    <div id="footer">
+      {% block footer %}{% endblock %}
+    </div>
+    {% block js %}
+      {% include "horizon/_scripts.html" %}
+    {% endblock %}
+    <div class="modal_wrapper" />
+  </body>
+</html>

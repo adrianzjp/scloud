@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>swift online website</title>
+
+<link type="text/css" rel="stylesheet" href="/site_media/css/main.css" />
+<link type="text/css" rel="stylesheet" href="/site_media/css/auth.css" />
+
+<script src="/site_media/js/jquery-1.7.1.min.js"></script>
+
+
+<script>
+function check(){
+	var user = $('#username').val()
+	var pass = $('#password').val()
+	if (user == '' || pass == ''){
+		
+		alert('用户名和密码不能为空')
+		return false
+	} 
+	
+	
+	
+}
+
+
+
+</script>
+
+</head>
+
+<body>
+
+<div id="main_content">
+
+<div id="content">
+
+<div id="login">
+	<div class="id_header">
+	<b>云存储管理登录窗口</b><span style="color:red;margin-left:10px;">{{message}}</span>
+	</div>
+	
+	<div id="login_form">
+		<form action="/auth/" method="post">
+		
+				用户名：<input type="text" name="name" id="username"/><br /><br />
+				密码&nbsp&nbsp：<input type="password" name="pass" id="password"/>
+				
+				<br />
+				<br />
+				<input type="submit" value="登录" onclick="return check()"/>
+				<br />
+		
+		</form>
+	</div>
+
+	
+</div>
+
+</div>
+
+
+
+
+</div>
+
+</body>
+</html>

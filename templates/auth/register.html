@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>swift online website</title>
+
+<link type="text/css" rel="stylesheet" href="/site_media/css/main.css" />
+<link type="text/css" rel="stylesheet" href="/site_media/css/auth.css" />
+
+<script src="/site_media/js/jquery-1.7.1.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	//alert(getCookie('csrftoken'));
+	$('#submit').click(function(){
+		
+		
+		var username = $('#username').val()
+		var password = $('#password').val()
+		$.post("/auth/", {name:username,pass:password},	
+					function(data) {
+			if (data=='succeed!'){
+				
+				self.location='/swift/';
+				
+				
+			}else{
+				
+				alert('登录认证错误，请重新输入！！')
+				
+			}
+			
+			
+		})
+		
+	})
+	
+	
+	$('#r_submit').click(function(){
+		
+		var username = $('#r_user').val()
+		var password = $('#r_pass').val()
+		var passagain = $('#r_pass_again').val()
+		var email = $('#r_email').val()
+		
+		
+		if (password != passagain){
+			
+			alert('密码输入前后不一致！')
+			return 
+			
+		}
+		
+		
+		$.post("/auth/register/", {user:username,pass:password,email:email,passagain:passagain},	
+					function(data) {
+			alert(data)
+			/*
+			if (data=='succeed!'){
+				
+				self.location='/admin/';
+				
+				
+			}else{
+				
+				alert('登录认证错误，请重新输入！！')
+				
+			}*/
+			
+			
+		})
+		
+	})
+	
+	
+	$('#regiter_ok').click(function(){
+		$('#login').hide()
+		$('#reg').show()
+		
+		
+	})
+	$('#return_login').click(function(){
+		$('#reg').hide()
+		$('#login').show()
+		
+		
+	})
+	
+	
+})
+
+
+
+function check(){
+	var user = $('#r_user').val()
+	var pass = $('#r_pass').val()
+	var passa = $('#r_pass_again').val()
+	var email = $('#r_email').val()
+    var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;  
+	
+	if (user == '' || pass == ''){
+		
+		alert('用户名和密码不能为空')
+		return false
+	} 
+	
+	
+	
+    if (!pattern.test(email)) {  
+        alert("请输入正确的邮箱地址。");
+        return false
+    }  
+	if (pass == passa){
+		return true
+	}else{
+		alert('前后输入密码不匹配')
+		return false
+	}
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div id="main_content">
+
+<div id="content">
+
+<div id="reg">
+	<div class="id_header">
+	<b>swift 注册窗口</b><span style="color:red;margin-left:10px;">{{message}}</span>
+	</div>
+	
+	<div id="reg_form">
+		<form action="/auth/register/" method="post">
+				用户名：<input type="text" name="name" id="r_user"/><br /><br />
+				密码&nbsp&nbsp：<input type="password" name="pass" id="r_pass"/><br /><br />
+				确认&nbsp&nbsp：<input type="password" name="passagain" id="r_pass_again"/><br /><br />
+				邮箱&nbsp&nbsp：<input type="text" name="email" id="r_email"/><br /><br />
+				
+				<br />
+				<br />
+				
+				<input type="submit" value="注册" onclick="return check()"/>&nbsp&nbsp<a href="/">login?</a>
+		</form>
+	
+	</div>
+
+	
+</div>
+
+</div>
+
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	{% include 'swift/common.html' %}
+    <div id="mainPanel">
+    	<div id="search">
+        	<input id="searchInput" class="search-text" placeholder="当前页文件搜索">
+        </div>
+        <div id="crumb">
+        	<span style="padding-left:20px;color:#388FC9;font-size:13px;" id="crumb_content" value="{{id}}" count="0">分享的文件</span>
+        	<span id="contents_list" style="display:none" folder_ids="" files=""></span>
+        	<span id="loading" style="display:none"><img  src='/site_media/img/loading.gif' /></span>
+        </div>
+        
+        <div id="toolbar" class="cmd-panel">
+        <span><a href="/swift/share/" id="share_others" value="0">来自他人的分享</a></span><span><a href="/swift/share?from=me" id="share_my">我的分享</a></span>
+        <span  class="toolbar_add">
+	        <span>{{opr|safe}}</span>
+        </span>
+    	</div>
+        
+        <div id="filelist" style="height:450px;overflow-y:auto;overflow-x:hidden;">
+        
+            <table>
+						
+						<thead>
+							<tr><th><label class="checkbox checkbox_all"  id="check_all" value="none"></label></th><th class="name">文件名</th><th class="user_from">{{ label }}</th><th class="modified_time">日期</th></tr>
+						</thead>
+                        
+                        
+                        {%  for n in shares %}
+					        <tr class="filelistcontent"><td><label class="checkbox" value="none" type="object" url="{{n.0}}"></label></td><td class="name" type="obj"><span class="object">{{n.1}}</span></td><td class="size">{{n.2}}</td><td class="modified_time">{{n.3}}</td></tr>                               
+											 			
+						{% endfor %}
+                        
+		
+			</table>
+        	
+        </div>
+    
+    
+    </div>
+    	
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

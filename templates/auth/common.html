@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的云盘</title>
+
+<link type="text/css" rel="stylesheet" href="/site_media/css/main.css" />
+<link type="text/css" rel="stylesheet" href="/site_media/css/index.css" />
+<link type="text/css" rel="stylesheet" href="/site_media/css/loading.css" />
+<link rel="stylesheet" href="/site_media/js/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link href="/site_media/css/basic.css" type="text/css" rel="stylesheet" />
+
+<script src="/site_media/js/jquery-1.7.1.min.js"></script>
+<script src="/site_media/js/jquery.bgiframe.min.js"></script>
+<script src="/site_media/js/loading-min.js"></script>
+<script src="/site_media/js/index.js"></script>
+<script src="/site_media/js/auth.js"></script>
+
+<script type="text/javascript" src="/site_media/js/scripts/gettheme.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxbuttons.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxscrollbar.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxpanel.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxtree.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxexpander.js"></script>
+<script type="text/javascript" src="/site_media/js/jqwidgets/jqxwindow.js"></script>
+
+<script type="text/javascript" src="/site_media/js/enhance.js"></script>		
+<script type="text/javascript">
+	// Run capabilities test
+	enhance({
+		loadScripts: [
+			'/site_media/js/jQuery.fileinput.js',
+			'/site_media/js/example.js'
+		],
+		loadStyles: ['/site_media/css/enhanced.css']	
+	});   
+</script>
+
+<script>
+
+{{js|safe}}
+{{jsplus|safe}}
+
+
+</script>
+
+
+</head>
+
+<body>
+
+<div id="swift">
+
+
+<div id="topPanel">
+    	<span style="line-height:56px;color:#FFF;font-weight:bold;font-size:26px;padding-left:10px;font-style:oblique">云存储系统管理</span>
+    	<span style="line-height:56px;font-size:14px;position: absolute;right: 100px;color:#FFF;">{{request.session.NAME}}</span>
+    	<span style="line-height:56px;font-size:14px;position: absolute;right: 50px;"><a href="/auth/logout/" style="color:#FFF;">退出</a></span>
+    	
+    </div>
+    
+ 
+    	
+    <div id="leftPanel">
+    	<ul class="folders">
+        	<li><a href="/usermgr">用户管理</a></li>
+            <li><a href="/rolemgr">角色管理</a></li>
+            <li><a href="#">权限管理</a></li>
+            <li><a href="/domainmgr">域空间管理</a></li>
+        
+        </ul>
+    
+    
+    </div>

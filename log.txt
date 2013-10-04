@@ -1,0 +1,14 @@
+2013-05-13 21:25:04,255 - INFO: type:create_folder tenant:e container: 20130513212504070000
+2013-05-13 21:25:13,605 - INFO: type:upload_file tenant:e container: 20130513212504070000 filename: 访问数据库 (1).txt
+2013-05-13 21:31:43,638 - INFO: type:upload_file tenant:shy container: e778b9497aeb365adca7f4d245c81aea filename: image.jpg
+2013-05-13 21:31:55,302 - INFO: type:create_folder tenant:shy container: 20130513213155120000
+2013-05-13 22:03:38,292 - INFO: type:create_folder tenant:e container: 20130513220338127000
+2013-05-13 22:04:08,006 - ERROR: Request returned failure status.
+None
+2013-05-13 22:04:08,243 - ERROR: Request returned failure status.
+Traceback (most recent call last):
+  File "D:\djangoTest\newproject\api\keystone\baseclient.py", line 161, in _cs_request
+    **kwargs)
+  File "D:\djangoTest\newproject\api\keystone\baseclient.py", line 141, in request
+    raise exceptions.from_response(resp, body)
+Unauthorized: Invalid user / password (HTTP 401)

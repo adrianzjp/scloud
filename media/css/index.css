@@ -1,0 +1,142 @@
+#topPanel{background:url(/site_media/img/topbanner.png) repeat-x;height:56px;width:100%;color: rgb(34, 24, 21);font-size: 12px;}
+	
+	#leftPanel {background-color: rgb(245, 245, 245);
+		border-right: 1px solid rgb(224, 224, 224);
+		bottom: 0px;
+		left: 0px;
+		position: absolute;
+		top: 56px;
+		width: 195px;}
+	#mainPanel{margin-left: 196px;position: relative;}
+	#leftPanel .folders {
+		font-size: 14px;
+		left: 1px;
+		padding: 20px 0px 0px;
+		position: absolute;
+		top: 0px;
+		width: 100%;
+		z-index: 10;
+	}
+
+	#leftPanel .folders li {
+		height: 44px;
+		line-height: 44px;
+		margin-bottom: 7px;
+		width: 100%;
+		text-align:left;
+		
+		
+	}
+	#leftPanel .folders li a {
+		color: rgb(119, 119, 119);
+		display: block;
+		font: 15px/44px "Microsoft YaHei",tahoma,arial;
+		height: 44px;
+		
+		text-decoration:none;
+		padding-left:30px;
+
+		
+	}
+	/*#leftPanel .folders li a:hover{background-color:#DDEBF4;}*/
+	
+	#search {
+		background-color: #fff;
+		border: 1px solid #bbb;
+		border-radius: 2px 2px 2px 2px;
+		box-shadow: 0 1px 1px #E6E6E6 inset;
+		height: 22px;
+		line-height: 18px;
+		padding: 2px 21px 0 6px;
+		position: absolute;
+		right: 20px;
+		top: 6px;
+		width: 173px;
+	}
+	#search input.search-text {
+		background-color: #FFF;
+		border: 0 none;
+		font-size: 12px;
+		height: 18px;
+		line-height: 18px;
+		margin: 0;
+		outline: medium none;
+		padding: 0;
+		width: 100%;
+	}
+	
+	#crumb {
+		color: #aaa;
+		background: #fafafb;
+		border-bottom: 1px solid #f2f2f2;
+		height: 38px;
+		line-height:38px;
+	}
+	
+	#toolbar {
+		
+		height: 66px;
+		margin: 0 10px;
+		padding-left: 0;
+		border-bottom: 1px solid #e5e5e5;
+		line-height:66px;
+		font-weight:bold;
+	}
+	
+	
+	
+	#filelist table{
+		
+		border-collapse:collapse;		
+		margin:0px 10px;
+		width:95%;
+		position:relative;
+	
+	}
+	
+	#filelist table th{
+		font-size:14px;
+		font-weight:bold;
+	
+	}
+	
+	#filelist table td,#filelist table th{
+		border-bottom:1px dotted #E5E5E5;
+		padding:10px 5px;
+		text-align:left;
+		color:#737678;
+		font-size:13px;
+		font-style:tahoma,arial,ËÎÌו
+	
+	}
+	#filelist table .name{
+		width:65%;
+	
+	}
+	#filelist table .size{
+		width:15%;
+	
+	}
+	#filelist table .modified_time{
+		width:15%;
+	
+	}
+	#filelist table .object:hover{
+		text-decoration:underline;
+	
+	}
+	#filelist table .folder:hover{
+		text-decoration:underline;cursor:pointer;color:red;
+	
+	}
+	
+	
+	#filelist table .checkbox,#filelist table .checkbox_all{width:14px;height:14px;display:block;margin-left:10px;background:url(/site_media/img/checkbox.png) no-repeat 0 0;}
+	#filelist table .checkbox:hover,#filelist table .checkbox_all:hover{cursor:pointer}
+	
+	#filelist table tr:hover{background-color:#F7FCFF;}
+	
+	
+	#toolbar  span a{font-size:16px;text-decoration:none;padding:0px 20px;color:#000;}
+	#toolbar  a:hover{text-decoration:underline;font-weight:bold;color:#3C97D4}
+	
