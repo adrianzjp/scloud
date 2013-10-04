@@ -2,7 +2,7 @@
 
 
 $(document).ready(function () {
-	$('.contentlist .modify').click(function(){
+	$('.contentlist .edit').click(function(){
 		
 		type = $(this).attr('type')
 		
@@ -11,6 +11,7 @@ $(document).ready(function () {
 			id = $(this).attr('idf')
 			$.post("/useredit/", {id:id},	
 					function(data) {
+				alert('hello')
 				document.location.reload();
 				
 			})

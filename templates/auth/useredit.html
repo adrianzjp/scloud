@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	{% include 'auth/common.html' %}
+    <div id="mainPanel">
+    	<div id="search">
+        	<input id="searchInput" class="search-text" placeholder="当前页文件搜索">
+        </div>
+        <div id="crumb">
+        {% load  filters%}
+        	<span style="padding-left:20px;color:#388FC9;font-size:13px;">{{ title }}</span><span style="margin-left: 20px;" id="{{opr_id}}"><a href="javascript:history.go(-1);">返回</a></span>
+        	<span id="contents_list" style="display:none" folder_ids="" files=""></span>
+        	<span id="loading" style="display:none"><img  src='/site_media/img/loading.gif' /></span>
+        </div>
+        <div id="filelist" style="padding:10px 20px;">
+            <table style="border:1px dotted #CCC;">
+						<thead>
+							<tr>
+							<th class="name">用户信息</th>
+							<th class="name"></th>
+							</tr>
+						</thead>
+                        
+					            <tr class="contentlist">
+						            <td class="name">用户名</td>
+						            <td class="name" >{{content.0.0}}</td>
+					            </tr>                               
+					            <tr class="contentlist">
+						            <td class="name">注册邮箱</td>
+						            <td class="name">{{content.0.1}}</td>
+					            </tr>                               
+					            <tr class="contentlist">
+						            <td class="name">注册日期</td>
+						            <td class="name">{{content.0.2}}</td>
+					            </tr>                               
+											 			
+							
+                        
+                        
+		
+			</table>
+			
+			<table style="margin-top:20px;">
+						<thead>
+							<tr>
+							<th class="name">拥有角色<span style="color:green;padding-left:30px;font-size:12px;">+添加角色</span></th>
+							<th class="name"></th>
+							</tr>
+						</thead>
+						
+						{%  for n in content %}
+					            <tr class="contentlist">
+						            <td class="name">{{n.3}}</td>
+						            <td class="name" >删除</td>
+					            </tr>                               
+											 			
+						{% endfor %}
+                        
+											 			
+							
+                        
+                        
+		
+			</table>
+        	
+        </div>
+    
+    
+    </div>
+    	
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

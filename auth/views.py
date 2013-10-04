@@ -19,7 +19,7 @@ from django.utils import simplejson
 
 
 from api.swift import swiftAPI
-
+from api import mysql_oprs
 
 
 def index(request):
@@ -41,7 +41,10 @@ def authenticate(request):
     try:
         if name == '' or pw == '':
             raise
-        aus = client.Client(auth_url=AUTH_URL,username=name,password=pw,tenant_name=name)
+        
+        if len(mysql_oprs.auth(name, pw))==0:
+            raise
+#         aus = client.Client(auth_url=AUTH_URL,username=name,password=pw,tenant_name=name)
         
         request.session['NAME'] = name
         request.session['PASS'] = pw
@@ -56,7 +59,10 @@ def userManage(request):
     
     name = request.session['NAME']
     password = request.session['PASS']
-    aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+    
+    users = mysql_oprs.get_users()
+    
+#     aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
 #     users = []
 #     for n in aus.users.findall():
 #         print users.append(n.name)
@@ -66,13 +72,14 @@ def userManage(request):
             })
             '''
     return render_to_response('auth/sysmgr.html', {'title':'用户管理', 'oprs':'+添加用户','resname':'用户名',
-                                                   'content':aus.users.findall(), 'js':js,'opr_id':'add_user','type':'user'})
+                                                   'content':users, 'js':js,'opr_id':'add_user','type':'user'})
     
 def roleManage(request):
     
     name = request.session['NAME']
     password = request.session['PASS']
-    aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+#     aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+    roles = mysql_oprs.get_roles()
 #     users = []
 #     for n in aus.users.findall():
 #         print users.append(n.name)
@@ -82,7 +89,7 @@ def roleManage(request):
             })
             '''
     return render_to_response('auth/sysmgr.html', {'title':'角色管理', 'oprs':'+添加角色','resname':'角色名称',
-                                                   'content':aus.roles.findall(), 'js':js,'opr_id':'add_role','type':'role'})
+                                                   'content':roles, 'js':js,'opr_id':'add_role','type':'role'})
     
 def domainManage(request):
     
@@ -105,8 +112,10 @@ def userDelete(request):
     idx = str(request.POST['id']).strip()
     name = request.session['NAME']
     password = request.session['PASS']
-    aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
-    aus.users.delete(idx)
+    
+    mysql_oprs.delete_user_by_id(idx)
+#     aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+#     aus.users.delete(idx)
     return HttpResponse('OK')
     
 def roleDelete(request):
@@ -148,9 +157,20 @@ def find_all_tenants(request):
 def edit_user(request):
     name = request.session['NAME']
     password = request.session['PASS']
-    idx = str(request.POST['id']).strip()
-    aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
-    user = aus.users.find(idx)
+    
+    if name!='' and password!='':
+        idx = str(request.GET['id']).strip()
+        user_info = mysql_oprs.get_user_by_id(idx)
+        js = '''$(document).ready(function () {
+            $('#leftPanel .folders li:eq(0)').css({'background-color':'#DDEBF4'})
+            })'''
+        return render_to_response('auth/useredit.html', {'title':'编辑用户', 'oprs':'返回','resname':'域类别',
+                                                   'content':user_info, 'js':js,'opr_id':'add_domain','type':'role'})
+    
+#         aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+#         user = aus.users.find(idx)
+    else:
+        return redirect('/')
     
     
 

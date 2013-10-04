@@ -16,15 +16,61 @@ def getConn(database):
     return conn
 
 
-def get_users():
-        
+def auth(name, pw):
     conn = getConn("scloud")
     cursor = conn.cursor()
-    cursor.execute("select * from user")
+    cursor.execute("select id,name,email from user where name='"+str(name)+"' and pass='"+str(pw)+"' and is_active=1")
     res = cursor.fetchall()
     cursor.close()
     conn.close()
     return  res
+    
+# users opr
+
+def get_users():
+        
+    conn = getConn("scloud")
+    cursor = conn.cursor()
+    cursor.execute("select id, name from user where is_active=1")
+    res = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return  res
+
+def delete_user_by_id(id):
+    conn = getConn("scloud")
+    cursor = conn.cursor()
+    cursor.execute("delete from user where id="+str(id))
+    cursor.close()
+    conn.close()
+
+
+def get_user_by_id(id):
+    conn = getConn("scloud")
+    cursor = conn.cursor()
+    cursor.execute("select user.name, user.email, user.created, role.role_name, role.is_active from user left join "+ 
+    "user_roles on user.id = user_roles.user_id left join role on role.id = user_roles.role_id where user.id="+str(id))
+    res = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return  res
+
+#------------------------
+
+
+def get_roles():
+
+    conn = getConn("scloud")
+    cursor = conn.cursor()
+    cursor.execute("select id, role_name, role_type, role_expires, metadata from role where is_active=1")
+    res = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return  res
+
+
+
+
 
 def put_info(type_name="",tenant_name="",container_name="",file_name="",user_name=""):
     conn = getConn("swiftoprs")
@@ -314,4 +360,6 @@ def deleteShare(urls=''):
     
 ###
 if __name__ == '__main__':
-    print get_users()
+    for n in(get_user_by_id(1)):
+        print n
+    

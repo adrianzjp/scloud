@@ -13,7 +13,7 @@
         </div>
         
         
-        <div id="filelist" style="height:450px;overflow-y:auto;overflow-x:hidden;">
+        <div id="filelist" style="">
             <table>
 						<thead>
 							<tr>
@@ -26,9 +26,9 @@
                         	{%  for n in content %}
 					            <tr class="contentlist">
 						            <td><label class="checkbox" value="none" type="folder" idf=""></label></td>
-						            <td class="name"><span class="folder">{{n.name}}</span></td>
-						            <td class="del" idf="{{n.id}}" type="{{type}}">删除</td>
-						            <td class="modify" idf="{{n.id}}" type="{{type}}">编辑</td>
+						            <td class="name"><span class="folder">{{n.1}}</span></td>
+						            <td class="del" idf="{{n.0}}" type="{{type}}"><a href="#">删除</a></td>
+						            <td class="edit" idf="{{n.0}}" type="{{type}}"><a href="/useredit?id={{n.0}}">编辑</a></td>
 					            </tr>                               
 											 			
 							{% endfor %}
