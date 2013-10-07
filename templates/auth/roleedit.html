@@ -15,22 +15,18 @@
             <table style="border:1px dotted #CCC;">
 						<thead>
 							<tr>
-							<th class="name">用户信息(ID号：<span id="user_id">{{content.0.0}}</span>)</th>
+							<th class="name">角色信息(ID号：<span id="role_id">{{content.0}}</span>)</th>
 							<th class="name"></th>
 							</tr>
 						</thead>
                         
 					            <tr class="contentlist">
-						            <td class="name">用户名</td>
-						            <td class="name" >{{content.0.1}}</td>
+						            <td class="name">角色名</td>
+						            <td class="name" >{{content.1}}</td>
 					            </tr>                               
 					            <tr class="contentlist">
-						            <td class="name">注册邮箱</td>
-						            <td class="name">{{content.0.2}}</td>
-					            </tr>                               
-					            <tr class="contentlist">
-						            <td class="name">注册日期</td>
-						            <td class="name">{{content.0.3}}</td>
+						            <td class="name">角色类型</td>
+						            <td class="name">{{content.2}}</td>
 					            </tr>                               
 											 			
 							
@@ -42,18 +38,16 @@
 			<table style="margin-top:20px;">
 						<thead>
 							<tr>
-							<th class="name">拥有角色<span style="color:green;padding-left:30px;font-size:12px;" id="add_domain_role">+添加域角色</span></th>
+							<th class="name">包含权限<span style="display:none;" id="permission_ids">{{permission_ids}}</span><span style="color:green;padding-left:30px;font-size:12px;" id="add_permission">+添加权限</span></th>
 							<th class="name"></th>
 							</tr>
 						</thead>
 						
-						{%  for n in content %}
-							{% if n.4 %}
+						{%  for n in permissions %}
 					            <tr class="contentlist">
-						            <td class="name">{{n.4}}<span style="padding-left:10px; color:blue;">(所属域：{{n.5}}_{{n.6}})</span></td>
+						            <td class="name">{{n.0}}<span style="padding-left:10px; color:blue;"></span></td>
 						            <td class="name" >删除</td>
 					            </tr>                               
-							{% endif %}				 			
 						{% endfor %}
                         
 											 			

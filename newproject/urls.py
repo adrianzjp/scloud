@@ -47,17 +47,25 @@ urlpatterns = patterns('',
     url(r'^userdel/$', 'auth.views.userDelete'),
     url(r'^useredit/$', 'auth.views.edit_user'),
     url(r'^allroles/$', 'auth.views.find_all_roles'),
-    url(r'^alltenants/$', 'auth.views.find_all_tenants'),
+    url(r'^allrolesindomain/$', 'auth.views.find_all_roles_in_domain'),
+    url(r'^alldomains/$', 'auth.views.find_all_domains'),
     url(r'^create_user/$', 'auth.views.create_user'),
     
     url(r'^rolemgr/$', 'auth.views.roleManage'),
+    url(r'^roleedit/$', 'auth.views.edit_role'),
     url(r'^roledel/$', 'auth.views.roleDelete'),
-    url(r'^create_role/$', 'auth.views.create_role'),
+    url(r'^create_domain_role/$', 'auth.views.create_domain_role'),
     
     
     url(r'^domainmgr/$', 'auth.views.domainManage'),
+    url(r'^domain_admin/$', 'auth.views.domainAdmin'),
+    url(r'^domaindel/$', 'auth.views.domainDelete'),
+    url(r'^domain_active/$', 'auth.views.domainActive'),
+    url(r'^create_domain/$', 'auth.views.create_domain'),
     url(r'^roledel/$', 'auth.views.roleDelete'),
     url(r'^create_role/$', 'auth.views.create_role'),
+    
+    url(r'^add_permissions/$', 'auth.views.add_permission'),
     
     url(r'^auth/$', 'auth.views.authenticate'),
     url(r'^auth/register/$', 'auth.views.register'),

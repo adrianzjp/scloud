@@ -106,7 +106,7 @@
 		text-align:left;
 		color:#737678;
 		font-size:13px;
-		font-style:tahoma,arial,ËÎÌå
+		font-style:tahoma,arial,ï¿½ï¿½ï¿½ï¿½
 	
 	}
 	#filelist table .name{
@@ -136,7 +136,9 @@
 	
 	#filelist table tr:hover{background-color:#F7FCFF;}
 	
-	
+	#filelist table th{width:100px;}
 	#toolbar  span a{font-size:16px;text-decoration:none;padding:0px 20px;color:#000;}
 	#toolbar  a:hover{text-decoration:underline;font-weight:bold;color:#3C97D4}
+	
+	#permissions ul li{list-style-type:none;float:left;width:120px;padding:5px 0px;}
 	

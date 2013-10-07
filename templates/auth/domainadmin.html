@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-	{% include 'auth/common.html' %}
+	{% include 'auth/common_admin.html' %}
     <div id="mainPanel">
     	<div id="search">
         	<input id="searchInput" class="search-text" placeholder="当前页文件搜索">
         </div>
         <div id="crumb">
         {% load  filters%}
-        	<span style="padding-left:20px;color:#388FC9;font-size:13px;">{{ title }}</span>
+        	<span style="padding-left:20px;color:#388FC9;font-size:13px;">空间名称：<span id="space_id" style="display:none">{{space_id}}</span>{{space_info.1}}，当前空间有{{space_info.2}}G，剩余<span style="color:red"><span id="spare_space">{{spare_space}}</span>G</span></span><span style="margin-left: 20px;" id="{{opr_id}}">{{ oprs|escape }}</span>
         	<span id="contents_list" style="display:none" folder_ids="" files=""></span>
         	<span id="loading" style="display:none"><img  src='/site_media/img/loading.gif' /></span>
         </div>
@@ -28,7 +28,7 @@
 					            <tr class="contentlist">
 						            <td class="">{{n.1}}</td>
 						            <td class="size">{{n.3}}GB</td>
-						            <td class="num">{{n.2}}</td>
+						            <td class="num"></td>
            						    <td class="edit" idf="{{n.0}}" type="{{type}}" active_code="{{n.4}}">{% ifequal n.4 0 %}
 									    {{'激活'}}{% else %}{{'禁用'}}
 									{% endifequal %}</td>
@@ -57,7 +57,7 @@
 					            <tr class="contentlist">
 						            <td class="">{{n.1}}</td>
 						            <td class="size">{{n.3}}GB</td>
-						            <td class="num">{{n.2}}</td>
+						            <td class="num"></td>
          						    <td class="edit" idf="{{n.0}}" type="{{type}}" active_code="{{n.4}}">{% ifequal n.4 0 %}
 									    {{'激活'}}{% else %}{{'禁用'}}
 									{% endifequal %}</td>
@@ -87,7 +87,7 @@
 					            <tr class="contentlist">
 						            <td class="">{{n.1}}</td>
 						            <td class="size">{{n.3}}GB</td>
-						            <td class="num">{{n.2}}</td>
+						            <td class="num"></td>
 						            <td class="edit" idf="{{n.0}}" type="{{type}}" active_code="{{n.4}}">{% ifequal n.4 0 %}
 																    {{'激活'}}{% else %}{{'禁用'}}
 																{% endifequal %}</td>
