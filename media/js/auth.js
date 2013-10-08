@@ -2,6 +2,47 @@
 
 
 $(document).ready(function () {
+	$('.contentlist .update').click(function(){
+
+		
+		type = $(this).attr('type')
+		
+		
+		
+		if ('space_size' == type){
+			
+			id = $(this).attr('idf')
+			size = $('#newsize'+id).val()
+			
+			$.post("/space_update/", {id:id, size:size},	
+					function(data) {
+				document.location.reload();
+				
+			})
+			
+			
+		}
+		
+		if ('space_isactive' == type){
+			
+			id = $(this).attr('idf')
+			is_active = $(this).attr('is_active')
+			
+			$.post("/space_update/", {id:id, is_active:is_active},	
+					function(data) {
+				document.location.reload();
+				
+			})
+			
+			
+		}
+		
+	
+	
+	})
+	
+	
+	
 	$('.contentlist .edit').click(function(){
 		
 		type = $(this).attr('type')
@@ -131,11 +172,11 @@ $(document).ready(function () {
 	
 	function find_roles_by_domain_id(domain_type_id){
 		var roles = ''
-		$("#role_id").empty()
+		$.ajaxSetup({ 
+		    async : false 
+		}); //将ajax设置成同步操作
 		$.post("/allrolesindomain/", {domain_id:domain_type_id},	
   				function(data) {
-  			
-  			
   			data = eval(data)
   			length = (data.length)
   			
@@ -143,12 +184,67 @@ $(document).ready(function () {
   				roles += '<option value="'+this[0]+'">'+this[1]+'</option>'
   			})
   			
-//  			alert(roles)
-  			$("#role_id").append(roles);
+//  			return roles;
   		})
+  		return (roles)
 		
 		
 	}
+	
+	$('#add_user_domain_role').click(function(){
+				var domain_id = $('#domain_id').html()
+				var users = ''
+				var roles = ''
+				var domain_type_id = $('#domain_type_id').html()
+				
+				roles = (find_roles_by_domain_id(domain_type_id))
+				
+				$.post("/allusers/", {},	
+						function(data) {
+					
+					data = eval(data)
+					length = (data.length)
+					
+					$.each(data,function(){
+						users += '<option value="'+this[0]+'">'+this[1]+'</option>'
+					})
+					$('#mainPanel').append(
+							'<div id="window">'+
+							'<div id="windowHeader">'+
+							'<span>'+
+							'<img src="/site_media/img/images/folder.png" alt="" style="margin-right: 15px" />添加用户到域'+
+							'</span>'+
+							'</div>'+
+							'<div style="overflow: hidden;" id="windowContent">'+
+							'<form action="/create_user_domain_role/" method="post">'+
+//			          				'<div class="create_f"><span style="display:inline-block;width:80px; ">角色名称<span style="color:red">*</span>：</span> <input type="text" name = "name" /></div>'+
+							'<div class="create_f"><span style="display:inline-block;width:80px; " id="sdomain">选择用户<span style="color:red">*</span>：</span><select id="user_id" name="user_id">'+
+							users+
+							'</select></div>'+
+							'<div class="create_f"><span style="display:inline-block;width:80px; " id="srole">选择角色<span style="color:red">*</span>：</span><select name="role_id" id="role_id">'+
+							roles+
+							'</select></div>'+
+							'<div class="" style="padding:10px;text-align:center">'+
+							'<input type="submit" value="创建角色"/>'+
+							'<input type="hidden" name = "domain_id" value="'+domain_id+'" />'+
+							
+							'</div>'+
+							'</form>'+
+							'</div>'+
+					'</div>')
+					 
+					$("#role_id").empty()
+					$("#role_id").append(roles);
+
+//					find_roles_by_domain_id(domain_type_id)
+					$('.create_f').css({"padding":"10px","font-size":"13px","font-weight":"bold"});
+					$('#window').jqxWindow({  maxWidth: 700, minHeight: 150, minWidth: 300,  width: 400});
+					$('#window').jqxWindow('resizable', false);
+					
+				})
+				
+				
+	})
 	
 	$('#add_domain_role').click(function(){
 		
@@ -192,12 +288,15 @@ $(document).ready(function () {
 			          		var domain_type_id = $('#domain_id_type_id').val().split("_")[1]
 //			          		alert(domain_type_id)
 			          		
-			          		find_roles_by_domain_id(domain_type_id)
+			          		var roles = find_roles_by_domain_id(domain_type_id)
+			          		$("#role_id").empty()
+  							$("#role_id").append(roles);
 			          		$('#domain_id_type_id').change(function(){
 			          			
 			          			var domain_type_id = $('#domain_id_type_id').val().split("_")[1]
-			          			find_roles_by_domain_id(domain_type_id)
-			          			
+			          			var roles = find_roles_by_domain_id(domain_type_id)
+				          		$("#role_id").empty()
+	  							$("#role_id").append(roles);			          			
 			          			
 			          		})
 			          		$('.create_f').css({"padding":"10px","font-size":"13px","font-weight":"bold"});

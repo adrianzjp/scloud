@@ -89,6 +89,53 @@ def userManage(request):
     return render_to_response('auth/sysmgr.html', {'title':'用户管理', 'oprs':'+添加用户','resname':'用户名',
                                                    'content':users, 'js':js,'opr_id':'add_user','type':'user'})
     
+def spaceManage(request):
+    
+    name = request.session['NAME']
+    password = request.session['PASS']
+#     aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+    spaces = mysql_oprs.get_spaces()
+#     users = []
+#     for n in aus.users.findall():
+#         print users.append(n.name)
+    
+    js = '''$(document).ready(function () {
+            $('#leftPanel .folders li:eq(3)').css({'background-color':'#DDEBF4'})
+            })
+            '''
+    return render_to_response('auth/spacemgr.html', {'title':'角色管理', 'oprs':'+添加角色','resname':'角色名称',
+                                                   'content':spaces, 'js':js,'opr_id':'','type':'space'})
+
+
+def spaceUpdate(request):
+    idx=''
+    size = ''
+    is_active = ''
+    
+#      user_id = str(request.POST['user_id'].encode('utf-8')).strip()
+#     role_id = str(request.POST['role_id'].encode('utf-8')).strip()
+#     domain_id = str(request.POST['domain_id_type_id'].encode('utf-8')).strip().split('_')[0]
+
+    if request.POST.has_key('id'):
+        idx = str(request.POST['id'].encode('utf-8')).strip()
+    if request.POST.has_key('size'):
+        size = str(request.POST['size'].encode('utf-8')).strip()
+    if request.POST.has_key('is_active'):
+        is_active = str(request.POST['is_active'].encode('utf-8')).strip()
+#      
+    if size!='':
+        if size.isdigit():
+            mysql_oprs.update_space_by_id(size=size, sid = idx)
+    if is_active!='':
+        if is_active == '1':
+            is_active = '0'
+        elif is_active == '0':
+            is_active = '1'
+        if is_active.isdigit() and is_active in (0,1,'0','1'):
+            mysql_oprs.update_space_by_id(is_active=is_active, sid = idx)
+    return HttpResponse('OK')
+        
+    
 def roleManage(request):
     
     name = request.session['NAME']
@@ -212,6 +259,30 @@ def create_domain_role(request):
         pass
     return redirect('/useredit/?id='+user_id)
 
+def create_user_domain_role(request):
+    user_id = str(request.POST['user_id'].encode('utf-8')).strip()
+    role_id = str(request.POST['role_id'].encode('utf-8')).strip()
+    domain_id = str(request.POST['domain_id'].encode('utf-8')).strip().split('_')[0]
+    
+    try:
+        if mysql_oprs.check_user_domain_roles(user_id, role_id, domain_id) > 0:
+            raise
+        mysql_oprs.put_user_domain_roles(user_id, role_id,domain_id)
+    except:
+        return redirect('/domain_detail/?id='+domain_id+'&message=error')
+        pass
+    return redirect('/domain_detail/?id='+domain_id)
+
+    
+
+def find_all_users(request):
+    name = request.session['NAME']
+    password = request.session['PASS']
+#     aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+    users = [(r[0], r[1], r[2]) for r in mysql_oprs.get_users()]
+    users_json = simplejson.dumps(users)
+    return HttpResponse(users_json)
+
     
 
 def find_all_roles(request):
@@ -267,6 +338,24 @@ def edit_user(request):
     else:
         return redirect('/')
 
+def edit_domain(request):
+    name = request.session['NAME']
+    password = request.session['PASS']
+    
+    if name!='' and password!='':
+        idx = str(request.GET['id']).strip()
+        domain_info = mysql_oprs.get_domain_user_role_by_domain_id(idx)
+        js = '''$(document).ready(function () {
+            $('#leftPanel .folders li:eq(0)').css({'background-color':'#DDEBF4'})
+            })'''
+        return render_to_response('auth/domainedit.html', {'title':'编辑域', 'oprs':'返回','resname':'域类别',
+                                                   'content':domain_info, 'js':js,'opr_id':'','type':'role','domain_id':idx})
+    
+#         aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+#         user = aus.users.find(idx)
+    else:
+        return redirect('/')
+
 def domainActive(request):
     name = request.session['NAME']
     password = request.session['PASS']
@@ -298,9 +387,9 @@ def add_permission(request):
         
         role_id = request.POST['role_id']
         
-        permission_union =','.join(list(permission_ids_exist | permissions))
-        
-        mysql_oprs.update_role_permissions(role_id, permission_union)
+        permission_union =','.join(list(permission_ids_exist | permissions)).strip(',')
+        if permission_union!= '':
+            mysql_oprs.update_role_permissions(role_id, permission_union)
         
         
         return redirect('/roleedit/?id='+role_id)

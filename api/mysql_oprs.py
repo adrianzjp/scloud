@@ -135,7 +135,7 @@ def get_role_by_name(name):
 def update_role_permissions(role_id,ids):
     conn = getConn("scloud")
     cursor = conn.cursor()
-    cursor.execute("UPDATE role SET metadata ='"+str(ids)+"' where id = "+str(role_id))
+    cursor.execute("UPDATE role SET  is_active=1, metadata ='"+str(ids)+"' where id = "+str(role_id))
     cursor.close()
     conn.close()
 
@@ -193,6 +193,18 @@ def get_permission_by_ids(ids):
 
 #for domain oprs
 
+def get_domain_user_role_by_domain_id(domain_id):
+    conn = getConn("scloud")
+    cursor = conn.cursor()
+    cursor.execute("select domain.name, domain_type.type, user_space.name, domain.size, domain.created, "+
+                   "user.name, role.role_name, user_domain_roles.is_active, domain_type.id"+
+                   " from domain left join user_domain_roles on domain.id = user_domain_roles.domain_id left join role on user_domain_roles.role_id = role.id left join user on user_domain_roles.user_id = user.id left join domain_type on domain_type.id = domain.domain_type_id left join user_space on domain.space_id = user_space.id where domain.id="+str(domain_id))
+    res = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return  res
+
+
 
 def get_domains():
     
@@ -249,6 +261,16 @@ def update_domain_is_active(did, active_code):
     
 #---------------space table
 
+def get_spaces():
+    conn = getConn("scloud")
+    cursor = conn.cursor()
+    cursor.execute("select id,name, owner_id, size,is_active, created, expires, modified from user_space")
+    res = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return  res
+
+
 def get_space_by_user_name(uname):
     conn = getConn("scloud")
     cursor = conn.cursor()
@@ -267,6 +289,20 @@ def put_space(user_name, size=2):
     
     cursor.execute("insert into user_space(name, owner_id, size, created, expires, modified) values('"+str(user_name)+'_space'+"', "+str(user_id)+","+str(size)+",NOW(), NOW(), NOW());")
     
+    cursor.close()
+    conn.close()
+    
+def update_space_by_id(is_active='', size='',sid=0):
+    conn = getConn("scloud")
+    cursor = conn.cursor()
+    if is_active!='' and size!='':
+        cursor.execute("UPDATE user_space SET size = "+str(size)+", is_active ="+str(is_active)+" where id = "+str(sid))
+    elif is_active!='':
+        cursor.execute("UPDATE user_space SET is_active ="+str(is_active)+" where id = "+str(sid))
+    elif size!='':
+        cursor.execute("UPDATE user_space SET size = "+str(size)+" where id = "+str(sid))
+    else:
+        raise
     cursor.close()
     conn.close()
     
@@ -573,5 +609,5 @@ def deleteShare(urls=''):
     
 ###
 if __name__ == '__main__':
-    print auth('keai','scloud')#put_space(user_name, owner_id, size=2)
+    print put_domain('hello', '1', '1', '6')#put_space(user_name, owner_id, size=2)
     

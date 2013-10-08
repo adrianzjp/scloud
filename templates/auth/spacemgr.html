@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	{% include 'auth/common.html' %}
+    <div id="mainPanel">
+    	<div id="search">
+        	<input id="searchInput" class="search-text" placeholder="当前页文件搜索">
+        </div>
+        <div id="crumb">
+        {% load  filters%}
+        	<span style="padding-left:20px;color:#388FC9;font-size:13px;"><a href="/domainmgr">域管理</a></span>
+        	<span id="" style="padding-left:20px;font-size:13px;"><a href="/spacemgr" style="background:green;color:#FFF;padding:3px 8px;">空间管理</a></span>
+        	<span id="loading" style="display:none"><img  src='/site_media/img/loading.gif' /></span>
+        </div>
+        
+        
+        <div id="filelist" style="">
+            <table>
+						<thead>
+							<tr>
+							<th class="">空间名称</th>
+							<th class=""></th>
+							<th class=""></th>
+							<th class=""></th></tr>
+						</thead>
+                        
+                        	{%  for n in content %}
+					            <tr class="contentlist">
+						            <td class=""><span class="folder">{{n.1}}
+						            						<span style="color:red;font-weight:bold;">
+						            						（{{n.3}}G）
+							            						{% ifequal n.2 0 %}
+																    {{'(未激活)'}}
+																{% endifequal %}
+															</span>
+						            
+						            </span></td>
+						            <td><input type="text" id = "newsize{{n.0}}" style="width:60px;" /><a href="#" style="clolr:red;font-size:10px;"  class="update" idf="{{n.0}}" type="space_size">更新</a></td>
+						            <td><a href="#" style="clolr:red;font-size:10px;"  class="update" idf="{{n.0}}" type="space_isactive" is_active="{{n.4}}">{% ifequal n.4 0 %}{{'激活'}}{% endifequal %}{% ifequal n.4 1 %}{{'禁用'}}{% endifequal %}
+																</a></td>
+						            <td class="del" idf="{{n.0}}" type="{{type}}"><a href="#">删除</a></td>
+					            </tr>                               
+											 			
+							{% endfor %}
+							
+                        
+                        
+		
+			</table>
+        	
+        </div>
+    
+    
+    </div>
+    	
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

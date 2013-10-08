@@ -18,7 +18,7 @@
 			<table>
 						<thead>
 							<tr>
-							<th class="">public 域名称</th>
+							<th style="width:220px;">public 域名称</th>
 							<th class=""></th>
 							<th class=""></th>
 							<th class=""></th>
@@ -26,7 +26,7 @@
 						</thead>
                         {%  for n in pub %}
 					            <tr class="contentlist">
-						            <td class="">{{n.1}}</td>
+						            <td class=""><a href="/domain_detail?id={{n.0}}">{{n.1}}</a><span id="add_pub_user" style="color:red;font-size:12px;margin-left:20px;">+添加域用户</span></td>
 						            <td class="size">{{n.3}}GB</td>
 						            <td class="num"></td>
            						    <td class="edit" idf="{{n.0}}" type="{{type}}" active_code="{{n.4}}">{% ifequal n.4 0 %}
@@ -47,7 +47,7 @@
 			<table>
 						<thead>
 							<tr>
-							<th class="">protected 域名称</th>
+							<th style="width:220px;">protected 域名称</th>
 							<th class=""></th>
 							<th class=""></th>
 							<th class=""></th>
@@ -55,7 +55,7 @@
 						</thead>
                         {%  for n in pro %}
 					            <tr class="contentlist">
-						            <td class="">{{n.1}}</td>
+						            <td class=""><a href="/domain_detail?id={{n.0}}">{{n.1}}</a><span id="add_pro_user" style="color:red;font-size:12px;margin-left:20px;">+添加域用户</span></td>
 						            <td class="size">{{n.3}}GB</td>
 						            <td class="num"></td>
          						    <td class="edit" idf="{{n.0}}" type="{{type}}" active_code="{{n.4}}">{% ifequal n.4 0 %}
@@ -77,7 +77,7 @@
 			<table>
 						<thead>
 							<tr>
-							<th class="">private 域名称</th>
+							<th style="width:220px;">private 域名称</th>
 							<th class=""></th>
 							<th class=""></th>
 							<th class=""></th>
@@ -85,7 +85,7 @@
 						</thead>
                         {%  for n in pri %}
 					            <tr class="contentlist">
-						            <td class="">{{n.1}}</td>
+						            <td class=""><a href="/domain_detail?id={{n.0}}">{{n.1}}</a></td>
 						            <td class="size">{{n.3}}GB</td>
 						            <td class="num"></td>
 						            <td class="edit" idf="{{n.0}}" type="{{type}}" active_code="{{n.4}}">{% ifequal n.4 0 %}
