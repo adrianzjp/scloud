@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	{% include 'auth/common.html' %}
+    <div id="mainPanel">
+    	<div id="search">
+        	<input id="searchInput" class="search-text" placeholder="当前页文件搜索">
+        </div>
+        <div id="crumb">
+        {% load  filters%}
+        	<span style="padding-left:20px;color:#388FC9;font-size:13px;"><a href="/domainmgr">域管理</a></span>
+        	<span id="" style="padding-left:20px;font-size:13px;"><a href="/spacemgr" style="background:green;color:#FFF;padding:3px 8px;">空间管理</a></span>
+        	<span id="loading" style="display:none"><img  src='/site_media/img/loading.gif' /></span>
+        </div>
+        
+        
+        <div id="filelist" style="">
+        
+        <form action="">
+        
+                        <ul>
+                        
+                        	{%  for n in content %}
+							<li><label><input name="permissions" type="checkbox" value="{{n.0}}" />{{n.1}}</label></li>				 			
+							{% endfor %}
+                        
+                        
+                        </ul>
+                        
+                        <input type="submit" value="确认" />
+        
+        </form>
+							
+                        
+                        
+		
+        	
+        </div>
+    
+    
+    </div>
+    	
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

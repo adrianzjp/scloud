@@ -171,6 +171,18 @@ def check_user_domain_roles(user_id, role_id, domain_id):
 
 #----------for permission
 
+def get_permissions():
+    
+    conn = getConn("scloud")
+    cursor = conn.cursor()
+    cursor.execute("select id, name from permission")
+    res = cursor.fetchall()
+    
+    cursor.close()
+    conn.close()
+    return res
+
+
 def get_permission_by_ids(ids):
     conn = getConn("scloud")
     cursor = conn.cursor()

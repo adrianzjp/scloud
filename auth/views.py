@@ -105,6 +105,23 @@ def spaceManage(request):
             '''
     return render_to_response('auth/spacemgr.html', {'title':'角色管理', 'oprs':'+添加角色','resname':'角色名称',
                                                    'content':spaces, 'js':js,'opr_id':'','type':'space'})
+    
+def permissionManage(request):
+    
+    name = request.session['NAME']
+    password = request.session['PASS']
+#     aus = client.Client(auth_url=AUTH_URL,username=name,password=password)
+    permissions = mysql_oprs.get_permissions()
+#     users = []
+#     for n in aus.users.findall():
+#         print users.append(n.name)
+    
+    js = '''$(document).ready(function () {
+            $('#leftPanel .folders li:eq(2)').css({'background-color':'#DDEBF4'})
+            })
+            '''
+    return render_to_response('auth/permissionmgr.html', {'title':'角色管理', 'oprs':'+添加角色','resname':'角色名称',
+                                                   'content':permissions, 'js':js,'opr_id':'','type':'space'})
 
 
 def spaceUpdate(request):

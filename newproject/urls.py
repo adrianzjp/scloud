@@ -53,6 +53,7 @@ urlpatterns = patterns('',
     url(r'^create_user/$', 'auth.views.create_user'),
     
     url(r'^rolemgr/$', 'auth.views.roleManage'),
+    url(r'^permissionmgr/$', 'auth.views.permissionManage'),
     url(r'^spacemgr/$', 'auth.views.spaceManage'),
     url(r'^roleedit/$', 'auth.views.edit_role'),
     url(r'^roledel/$', 'auth.views.roleDelete'),
